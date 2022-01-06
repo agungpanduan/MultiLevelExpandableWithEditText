@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="25dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnExpandLevel4"
+                android:layout_width="0dp"
+                android:layout_weight=".10"
+                android:layout_height="27dp"
+                android:background="@drawable/ic_expand_button"
+                android:backgroundTint="#455EE4"
+                android:textSize="14dp"
+                />
+
+            <TextView
+                android:id="@+id/txtParent"
+                android:layout_width="0dp"
+                android:layout_weight=".25"
+                android:layout_height="wrap_content"
+                android:text="Part No"
+                android:textSize="13dp"
+                android:paddingLeft="5px"/>
+
+            <TextView
+                android:id="@+id/txtLevel4Name"
+                android:layout_width="0dp"
+                android:layout_weight=".45"
+                android:layout_height="wrap_content"
+                android:text="Part Name"
+                android:textSize="13dp"
+                android:paddingLeft="5px"/>
+
+            <EditText
+                android:id="@+id/txtLevel4Value"
+                android:layout_width="0dp"
+                android:layout_weight=".1"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:focusable="true"
+                android:textSize="13dp"
+                android:paddingLeft="5px"/>
+
+            <TextView
+                android:id="@+id/txtLevel4"
+                android:layout_width="0dp"
+                android:layout_weight=".1"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="gone"
+                android:focusable="true"
+                android:textSize="13dp"
+                android:paddingLeft="5px"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>
