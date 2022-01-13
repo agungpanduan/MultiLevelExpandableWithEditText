@@ -68,7 +68,7 @@
             android:layout_height="fill_parent"
             android:layout_gravity="center_vertical"
             android:descendantFocusability="beforeDescendants"
-            android:dividerHeight="0dp"
+            android:dividerHeight="1dp"
             android:groupIndicator="@null"
             android:listSelector="#0f0"
             android:childDivider="#0f0"/>

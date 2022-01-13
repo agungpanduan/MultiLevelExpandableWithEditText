@@ -2,6 +2,7 @@ package com.example.MultiLevelExpandableListView.Adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
@@ -12,44 +13,125 @@ public class CustomExpListView extends ExpandableListView
         super(activity);
     }
 
-    boolean expanded = false;
-
-    public CustomExpListView(Context context) {
-        super(context);
-    }
-
-    public CustomExpListView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
-
-    public CustomExpListView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-    }
-
-    public boolean isExpanded() {
-        return expanded;
-    }
-
-    public void setExpanded(boolean expanded) {
-        this.expanded = expanded;
-    }
-
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        //999999 is a size in pixels. ExpandableListView requires a maximum height in order to do measurement calculations.
+        //heightMeasureSpec = MeasureSpec.makeMeasureSpec(999999, MeasureSpec.AT_MOST);
+        //super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        // measureChildren(widthMeasureSpec+5,heightMeasureSpec);
+
+        int heightMeasureSpec_custom = MeasureSpec.makeMeasureSpec(
+                Integer.MAX_VALUE >> 2, MeasureSpec.AT_MOST);
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec_custom);
+        ViewGroup.LayoutParams params = getLayoutParams();
+        params.height = getMeasuredHeight();
+
+        //kenapa gak bisa nambah Expandablistview untuk pertama karena
+        //tidak ada penambahan di expandableist berikutnya
+    }
+
+    public void CustomExpListView(ListLevel2Adapter listAdapter, int group){
+        //ListLevel2Adapter adapter = (ListLevel2Adapter) expandableListView.getExpandableListAdapter();
+        //listAdapter = (ListLevel2Adapter) getExpandableListAdapter();
+        int totalHeight = 0;
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(getWidth(),
+                View.MeasureSpec.EXACTLY);
+        for (int i = 0; i < listAdapter.getGroupCount(); i++) {
+            View groupItem = listAdapter.getGroupView(i, false, null,this);
+            groupItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += groupItem.getMeasuredHeight();
+
+            if (((isGroupExpanded(i)) && (i != group))
+                    || ((!isGroupExpanded(i)) && (i == group))) {
+                for (int j = 0; j < listAdapter.getChildrenCount(i); j++) {
+                    View listItem = listAdapter.getChildView(i, j, false, null,
+                            this);
+                    listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+                    totalHeight += listItem.getMeasuredHeight();
+                }
+            }
+        }
+
+        ViewGroup.LayoutParams params = getLayoutParams();
+        int height = totalHeight
+                + (getDividerHeight() * (listAdapter.getGroupCount() - 1));
+        if (height < 10)
+            height = 200;
+        params.height = height;
+        setLayoutParams(params);
+        requestLayout();
+    }
+
+    public void CustomExpListView(ListLevel3Adapter listAdapter, int group){
+        //ListLevel2Adapter adapter = (ListLevel2Adapter) expandableListView.getExpandableListAdapter();
+        //listAdapter = (ListLevel2Adapter) getExpandableListAdapter();
+        int totalHeight = 0;
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(getWidth(),
+                View.MeasureSpec.EXACTLY);
+        for (int i = 0; i < listAdapter.getGroupCount(); i++) {
+            View groupItem = listAdapter.getGroupView(i, false, null,this);
+            groupItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += groupItem.getMeasuredHeight();
+
+            if (((isGroupExpanded(i)) && (i != group))
+                    || ((!isGroupExpanded(i)) && (i == group))) {
+                for (int j = 0; j < listAdapter.getChildrenCount(i); j++) {
+                    View listItem = listAdapter.getChildView(i, j, false, null,
+                            this);
+                    listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+                    totalHeight += listItem.getMeasuredHeight();
+                }
+            }
+        }
+
+        ViewGroup.LayoutParams params = getLayoutParams();
+        int height = totalHeight
+                + (getDividerHeight() * (listAdapter.getGroupCount() - 1));
+        if (height < 10)
+            height = 200;
+        params.height = height;
+        setLayoutParams(params);
+        requestLayout();
+    }
+
+    public void CustomExpListView(ListLevel4Adapter listAdapter, int group){
+        //ListLevel2Adapter adapter = (ListLevel2Adapter) expandableListView.getExpandableListAdapter();
+        //listAdapter = (ListLevel2Adapter) getExpandableListAdapter();
+        int totalHeight = 0;
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(getWidth(),
+                View.MeasureSpec.EXACTLY);
+        for (int i = 0; i < listAdapter.getGroupCount(); i++) {
+            View groupItem = listAdapter.getGroupView(i, false, null,this);
+            groupItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += groupItem.getMeasuredHeight();
+
+            if (((isGroupExpanded(i)) && (i != group))
+                    || ((!isGroupExpanded(i)) && (i == group))) {
+                for (int j = 0; j < listAdapter.getChildrenCount(i); j++) {
+                    View listItem = listAdapter.getChildView(i, j, false, null,
+                            this);
+                    listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+                    totalHeight += listItem.getMeasuredHeight();
+                }
+            }
+        }
+
+        ViewGroup.LayoutParams params = getLayoutParams();
+        int height = totalHeight
+                + (getDividerHeight() * (listAdapter.getGroupCount() - 1));
+        if (height < 10)
+            height = 200;
+        params.height = height;
+        setLayoutParams(params);
+        requestLayout();
+    }
+
+    /*protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec, ListLevel2Adapter adapter, int group) {
         //CARA 1
         //999999 is a size in pixels. ExpandableListView requires a maximum height in order to do measurement calculations.
-        heightMeasureSpec = MeasureSpec.makeMeasureSpec(99999, MeasureSpec.AT_MOST);
-        //heightMeasureSpec = MeasureSpec.makeMeasureSpec(99999, MeasureSpec.getMode(1000));//MeasureSpec is reduce allocation ukuran awal agar sesuai jumlah item
-
-        //super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        if (isExpanded()) {
-            int expandSpec = MeasureSpec.makeMeasureSpec(MEASURED_SIZE_MASK, MeasureSpec.AT_MOST);
-            super.onMeasure(widthMeasureSpec, expandSpec);
-
-            ViewGroup.LayoutParams params = getLayoutParams();
-            params.height = getMeasuredHeight();
-        } else {
-            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        }
+        //999999 is a size in pixels. ExpandableListView requires a maximum height in order to do measurement calculations.
+        heightMeasureSpec = MeasureSpec.makeMeasureSpec(999999, MeasureSpec.AT_MOST);
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        // measureChildren(widthMeasureSpec+5,heightMeasureSpec);
 
         //super.setBackgroundResource(R.drawable.border);
         //.setBackgroundResource(R.drawable.radio_states_green);
@@ -103,7 +185,7 @@ public class CustomExpListView extends ExpandableListView
         /*widthMeasureSpec = MeasureSpec.makeMeasureSpec(960, MeasureSpec.EXACTLY);
         heightMeasureSpec = MeasureSpec.makeMeasureSpec(20000, MeasureSpec.AT_MOST);
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);*/
-    }
+    //}
 
     /*public static void setExpandableListViewHeightBasedOnChildren(ExpandableListView expandableListView){
         ListLevel2Adapter adapter = (ListLevel2Adapter) expandableListView.getExpandableListAdapter();

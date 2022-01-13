@@ -221,6 +221,7 @@ public class ListLevel2Adapter extends BaseExpandableListAdapter {
             }
         }
 
+
             if (convertView == null) {
                 customListLevel3Adapter = new ListLevel3Adapter(this.activity, AllDataItem, ItemLevel3);
                 customListLevel3Adapter.setInflater((LayoutInflater) this.activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE));
@@ -228,7 +229,10 @@ public class ListLevel2Adapter extends BaseExpandableListAdapter {
                 level3Custom.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS); //beforeDescendants
                 level3Custom.setDividerHeight(0);
                 level3Custom.setGroupIndicator(null);
+                level3Custom.setLayoutParams(viewGroup.getLayoutParams());
                 level3Custom.setAdapter(customListLevel3Adapter);
+
+                level3Custom.CustomExpListView(customListLevel3Adapter,groupPosition);
             }
             else{
                 customListLevel3Adapter = new ListLevel3Adapter(this.activity, AllDataItem, ItemLevel3);
@@ -237,7 +241,13 @@ public class ListLevel2Adapter extends BaseExpandableListAdapter {
                 level3Custom.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS); //beforeDescendants
                 level3Custom.setDividerHeight(0);
                 level3Custom.setGroupIndicator(null);
+                level3Custom.setLayoutParams(viewGroup.getLayoutParams());
                 level3Custom.setAdapter(customListLevel3Adapter);
+
+                level3Custom.CustomExpListView(customListLevel3Adapter,groupPosition);
+
+                //level2Custom.CustomExpListView(customListLevel2Adapter,groupPosition);
+
             }
             indext++;
         //}
@@ -250,4 +260,5 @@ public class ListLevel2Adapter extends BaseExpandableListAdapter {
     public boolean isChildSelectable(int i, int i1) {
         return false;
     }
+
 }

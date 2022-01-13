@@ -12,12 +12,15 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.MultiLevelExpandableListView.Model.Level;
 import com.example.MultiLevelExpandableListView.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ListLevel1Adapter extends BaseExpandableListAdapter {
@@ -34,6 +37,7 @@ public class ListLevel1Adapter extends BaseExpandableListAdapter {
     private Level func;
 
     private ListLevel2Adapter customListLevel2Adapter;
+    CustomExpListView level2Custom;
 
     public ListLevel1Adapter(Activity activity, ArrayList<Level> AllDataItem
     ) {
@@ -52,6 +56,15 @@ public class ListLevel1Adapter extends BaseExpandableListAdapter {
                 itemLevel.add(levelItem);
             }
         }
+
+        //SORT AGAR TIDAK BERUBAH OTOMATIS KARENA ASC ATAU DESC, jadi saya tetapkan DESCENDING
+        Collections.sort(itemLevel, new Comparator<Level>() {
+            @Override
+            public int compare(Level lhs, Level rhs) {
+                //return lhs.getName().compareTo(rhs.getName()); //Ascending
+                return rhs.getName().compareTo(lhs.getName()); //Descending
+            }
+        });
 //        this.mContext = mContext;
     }
 
@@ -119,6 +132,7 @@ public class ListLevel1Adapter extends BaseExpandableListAdapter {
             groupViewlevel1.btnExpandLevel1.setTag(itemLevel.get(groupPosition).getChildLevel());
             groupViewlevel1.txtLevel1.setText(itemLevel.get(groupPosition).getLevel());
 
+
             convertView.setTag(groupViewlevel1);
         }
         else{
@@ -142,7 +156,6 @@ public class ListLevel1Adapter extends BaseExpandableListAdapter {
                 } else
                 {
                     ExpandGroup1(groupPosition,viewGroup);
-                    //masalahnya data expand tidak ada
                 }
 
                 getChildrenCount(groupPosition);
@@ -231,7 +244,14 @@ public class ListLevel1Adapter extends BaseExpandableListAdapter {
                 level2Custom.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS); //beforeDescendants
                 level2Custom.setDividerHeight(0);
                 level2Custom.setGroupIndicator(null);
+                level2Custom.setLayoutParams(viewGroup.getLayoutParams());
+                //level2Custom.requestLayout();
+                //level2Custom.setScrollContainer(true);
+
                 level2Custom.setAdapter(customListLevel2Adapter);
+                level2Custom.CustomExpListView(customListLevel2Adapter,groupPosition);
+                //setExpandableListViewHeightBasedOnChildren(level2Custom, customListLevel2Adapter, groupPosition);
+
             }
             else{
                 customListLevel2Adapter = new ListLevel2Adapter(this.activity, AllDataItem, ItemLevel2);
@@ -240,7 +260,14 @@ public class ListLevel1Adapter extends BaseExpandableListAdapter {
                 level2Custom.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS); //beforeDescendants
                 level2Custom.setDividerHeight(0);
                 level2Custom.setGroupIndicator(null);
+                level2Custom.setLayoutParams(viewGroup.getLayoutParams());
+                //level2Custom.requestLayout();
+                //level2Custom.setScrollContainer(true);
+
                 level2Custom.setAdapter(customListLevel2Adapter);
+                level2Custom.CustomExpListView(customListLevel2Adapter,groupPosition);
+                //setExpandableListViewHeightBasedOnChildren(level2Custom, customListLevel2Adapter,groupPosition);
+
             }
         //AllDataItem2.remove(groupPosition);
         return level2Custom;
@@ -250,4 +277,5 @@ public class ListLevel1Adapter extends BaseExpandableListAdapter {
     public boolean isChildSelectable(int i, int i1) {
         return false;
     }
+
 }

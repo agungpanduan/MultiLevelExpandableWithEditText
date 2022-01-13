@@ -221,7 +221,10 @@ public class ListLevel3Adapter extends BaseExpandableListAdapter {
             level4Custom.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS); //beforeDescendants
             level4Custom.setDividerHeight(0);
             level4Custom.setGroupIndicator(null);
+            level4Custom.setLayoutParams(viewGroup.getLayoutParams());
             level4Custom.setAdapter(customListLevel4Adapter);
+            level4Custom.CustomExpListView(customListLevel4Adapter,groupPosition);
+
         }
         else{
             customListLevel4Adapter = new ListLevel4Adapter(this.activity, AllDataItem, ItemLevel4);
@@ -230,7 +233,10 @@ public class ListLevel3Adapter extends BaseExpandableListAdapter {
             level4Custom.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS); //beforeDescendants
             level4Custom.setDividerHeight(0);
             level4Custom.setGroupIndicator(null);
+            level4Custom.setLayoutParams(viewGroup.getLayoutParams());
             level4Custom.setAdapter(customListLevel4Adapter);
+            level4Custom.CustomExpListView(customListLevel4Adapter,groupPosition);
+
         }
         indext++;
         //}
